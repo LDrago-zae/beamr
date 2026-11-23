@@ -1,0 +1,21 @@
+---
+description: RemoteDesk source of truth. Read docs/PLAN.md before any task and follow its protocol and phase scope.
+alwaysApply: true
+---
+
+# RemoteDesk
+
+Read `docs/PLAN.md` before any task. The repo folder is `beamr`. The product name is RemoteDesk.
+
+- Never change protocol messages without first updating `packages/protocol` and `docs/PLAN.md` section 5.
+- Validate every incoming message with the zod schema before use. Never trust the peer.
+- Mobile: Flutter, Riverpod, go_router. No business logic inside widgets. Keep WebRTC logic in plain Dart classes.
+- Agent: TypeScript strict mode. All OS calls go through `native/input-rs`, never inline shell commands with user data.
+- Server: Fastify with zod on every route. No route without auth unless listed in the plan.
+- Never log tokens, keys, clipboard contents, file paths, or screen data.
+- Secrets only from environment variables or the OS keychain. Never commit secrets.
+- Every feature ships with tests. Every PR must pass lint, tests, and type checks.
+- Implement only the requested phase and task. Do not refactor unrelated code.
+- Security items in `docs/PLAN.md` section 9 are release blockers. Flag any change that weakens them.
+
+Work one phase at a time. Prompt pattern: read `docs/PLAN.md`, implement Phase N task N.x only, follow section 5, add tests, stop when acceptance criteria are met.
